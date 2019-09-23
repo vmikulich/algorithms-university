@@ -1,32 +1,36 @@
 package by.bsu.lab1;
 
-import java.util.Arrays;
+import by.bsu.lab1.utils.Swap;
+import static by.bsu.lab1.utils.Separartor.getSeparatorByFlag;
+import static by.bsu.lab1.utils.Swap.swap;
 
 public class Sort {
+    public static void quickSort(Integer[] arr, boolean flag, int k) {
+        doSort(arr, 0, arr.length - 1, flag, k);
+    }
 
-    public static Integer[] insertionSorting(Integer[] arr) {
-        for(int i = 1; i < arr.length; i++) {
-            if (arr.length == 0) {
-                return null;
+    public static void doSort(Integer[] arr, int begin0, int end0, boolean flag, int k) {
+        if (end0 - begin0 <= k) {
+            InsertionSort.insertionSort(arr, begin0, end0);
+            return;
+        }
+        int separator = getSeparatorByFlag(flag, arr, end0, begin0);
+        int begin = begin0;
+        int end = end0;
+        while (begin < end) {
+            while (arr[begin] < separator) {
+                begin++;
             }
-            for (int j = i; j > 0 && arr[j] < arr[j - 1] ; j--) {
-                swap(arr, j, j - 1);
+            while (arr[end] > separator) {
+                end--;
+            }
+            if (begin <= end) {
+                swap(arr, begin, end);
+                begin++;
+                end--;
             }
         }
-
-        return arr;
+        doSort(arr, begin0, end, flag, k);
+        doSort(arr, begin, end0, flag, k);
     }
-
-    public static void swap(Integer[] arr, int firstIndex, int secondIndex) {
-        int temp = arr[firstIndex];
-        arr[firstIndex] = arr[secondIndex];
-        arr[secondIndex] = temp;
-    }
-
-
-    public static void main(String[] args) {
-        Integer[] arr = {73, 19, 44, 32, 70, 37, 38, 25, 39, 1};
-        System.out.println(Arrays.asList(insertionSorting(arr)));
-    }
-
 }
