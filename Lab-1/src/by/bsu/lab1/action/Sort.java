@@ -1,6 +1,5 @@
-package by.bsu.lab1;
+package by.bsu.lab1.action;
 
-import by.bsu.lab1.utils.Swap;
 import static by.bsu.lab1.utils.Separartor.getSeparatorByFlag;
 import static by.bsu.lab1.utils.Swap.swap;
 

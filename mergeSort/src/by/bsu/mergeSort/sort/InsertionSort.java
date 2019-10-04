@@ -1,6 +1,6 @@
-package by.bsu.lab1;
+package by.bsu.mergeSort.sort;
 
-import by.bsu.lab1.utils.Swap;
+import by.bsu.mergeSort.util.Swap;
 
 public class InsertionSort {
     public static void insertionSort(Integer[] arr, int begin, int end) {
