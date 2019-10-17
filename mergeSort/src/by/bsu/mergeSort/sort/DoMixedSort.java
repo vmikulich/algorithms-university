@@ -12,16 +12,16 @@ public class DoMixedSort {
         if (end + 1 - start < 2) {
             return;
         }
-        if (end - start < k) {
-            insertionSort(arr, start, end);
-            return;
-        }
-//        if (end - start == 2) {
-//            if (arr[start] > arr[start + 1]) {
-//                Swap.swap(arr, start, start + 1);
-//            }
+//        if (end - start < k) {
+//            insertionSort(arr, start, end);
 //            return;
 //        }
+        if (end - start == 2) {
+            if (arr[start] > arr[start + 1]) {
+                Swap.swap(arr, start, start + 1);
+            }
+            return;
+        }
         doMixedSort(arr, start, start + (end + 1 - start) / 2, k);
         doMixedSort(arr, start + (end - start) / 2, end, k);
         List<Integer> temp = new ArrayList<>();
