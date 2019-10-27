@@ -1,21 +1,22 @@
 package by.bsu.lab3.binarySearch;
 
 public class BinarySearchRecursive {
-    public static int binarySearch(Integer[] arr, int elem) {
-        return doSearch(arr, elem, 0, arr.length - 1);
+    public static int[] binarySearch(Integer[] arr, int elem) {
+        int count = 0;
+        return doSearch(arr, elem, 0, arr.length - 1, count);
     }
 
-    public static int doSearch(Integer[] arr, int elem, int start, int end) {
+    public static int[] doSearch(Integer[] arr, int elem, int start, int end, int count) {
         if (start > end) {
-            return -1;
+            return new int[]{-1, count};
         }
         int mid = start + ((end - start) / 2);
         if (arr[mid] == elem) {
-            return mid;
+            return new int[]{mid, count};
         } else if (elem < arr[mid]) {
-            return doSearch(arr, elem, start, mid - 1);
+            return doSearch(arr, elem, start, mid - 1, count++);
         } else {
-            return doSearch(arr, elem, mid + 1, end);
+            return doSearch(arr, elem, mid + 1, end, count++);
         }
     }
 }

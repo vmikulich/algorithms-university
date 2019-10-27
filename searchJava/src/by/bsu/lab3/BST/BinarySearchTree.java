@@ -66,7 +66,6 @@ public class BinarySearchTree {
         }
     }
 
-
     public Node findNode(int key) {
         Node focusNode = root;
         while (focusNode.key != key) {
@@ -86,7 +85,6 @@ public class BinarySearchTree {
         Node focusNode = root;
         List<Node> bst = new ArrayList();
         kMinimumNode(focusNode, bst);
-//        System.out.println(bst.get(k));
         return bst.get(k);
     }
 
