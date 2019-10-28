@@ -1,7 +1,7 @@
 package by.bsu.lab3.binarySearch;
 
 public class BinarySearch {
-    public static int[] binarySearch(Integer[] arr, int elemToSearch) {
+    public static Integer[] binarySearch(Integer[] arr, int elemToSearch) {
         int count = 0;
         int index = -1;
         int start = 0;
@@ -18,6 +18,6 @@ public class BinarySearch {
             }
             count++;
         }
-        return new int[]{index, count};
+        return new Integer[]{index, count};
     }
 }

@@ -1,6 +1,5 @@
 package by.bsu.hash;
 
-import org.junit.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HashMapChainsTest {
 
 
-    HashChains hashChains = new HashChains(31);
+    HashChains hashChains = new HashChains(30);
 
     @BeforeEach
     public void initialization() throws Exception{
@@ -37,6 +36,6 @@ public class HashMapChainsTest {
         assertEquals(19, hashChains.get(33));
         assertEquals(2, hashChains.get(1));
         assertEquals(7, hashChains.get(32));
-        assertEquals(-1, hashChains.get(50));
+        assertEquals(null, hashChains.get(50));
     }
 }

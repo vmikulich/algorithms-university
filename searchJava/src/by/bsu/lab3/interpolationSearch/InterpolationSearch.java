@@ -1,7 +1,7 @@
 package by.bsu.lab3.interpolationSearch;
 
 public class InterpolationSearch {
-    public static int[] interpolationSearch(Integer[] arr, int elemToSearch) {
+    public static Integer[] interpolationSearch(Integer[] arr, int elemToSearch) {
         int count = 0;
         int index = -1;
         int start = 0;
@@ -18,6 +18,6 @@ public class InterpolationSearch {
             }
             count++;
         }
-        return new int[]{index, count};
+        return new Integer[]{index, count};
     }
 }

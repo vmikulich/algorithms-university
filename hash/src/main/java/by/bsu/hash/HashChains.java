@@ -1,6 +1,7 @@
 package by.bsu.hash;
 
 import by.bsu.hash.entry.Entry;
+import by.bsu.hash.util.WorkWithSize;
 
 import java.util.*;
 
@@ -11,8 +12,8 @@ public class HashChains {
     LinkedList<Entry>[] lists;
 
     public HashChains(int size) {
-        this.size = size;
-        this.lists = new LinkedList[size];
+        this.size = WorkWithSize.isPrime(size) ? size : WorkWithSize.getNextPrime(size);
+        this.lists = new LinkedList[this.size];
     }
 
     public void put(int key, int value) throws Exception {
@@ -28,10 +29,10 @@ public class HashChains {
         keys.add(key);
     }
 
-    public int get(int key) {
-        int res = -1;
+    public Integer get(int key) {
+        int res = 0;
         if (!keys.contains(key)) {
-            return res;
+            return null;
         }
         int index = Hash.hash1(key, size);
         LinkedList<Entry> list = lists[index];
