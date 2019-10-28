@@ -38,6 +38,7 @@ public class HashChains {
         for (Entry entry: list) {
             if (entry.getKey() == key) {
                 res = entry.getValue();
+                break;
             }
         }
         return res;
