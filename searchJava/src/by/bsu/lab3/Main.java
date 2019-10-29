@@ -15,8 +15,8 @@ public class Main {
     public static void main(String[] args) {
         Integer[] arr = Random.createRandomArray(0, 50, 30);
         System.out.println(Arrays.asList(arr));
-        Run.runSearch(InterpolationSearch.interpolationSearch(arr, 35));
-        Run.runSearch(BinarySearch.binarySearch(arr, 35));
+        Run.runSearch(InterpolationSearch.interpolationSearch(arr, 6));
+        Run.runSearch(BinarySearch.binarySearch(arr, 6));
 //        System.out.println(Arrays.asList(InterpolationSearch.interpolationSearch(arr, 20)));
 //        System.out.println(Arrays.asList(BinarySearch.binarySearch(arr, 20)));
 //        Run.RunBinarySort(arr, 20);
