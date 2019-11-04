@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HashMapChainsTest {
 
 
-    HashChains hashChains = new HashChains(30);
+    HashChains hashChains = new HashChains(30, Hash::hash1);
 
     @BeforeEach
     public void initialization() throws Exception{

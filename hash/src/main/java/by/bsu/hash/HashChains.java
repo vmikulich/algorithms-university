@@ -1,23 +1,39 @@
 package by.bsu.hash;
 
 import by.bsu.hash.entry.Entry;
+import by.bsu.hash.util.HashFuncWithConst;
 import by.bsu.hash.util.WorkWithSize;
-
+import by.bsu.hash.util.hashFunc;
 import java.util.*;
 
 public class HashChains {
 
     int size;
-    LinkedList<Entry>[] lists;
+    public LinkedList<Entry>[] lists;
+    hashFunc func;
+    HashFuncWithConst funcWithConst;
+    Double constant = Double.NaN;
 
-    public HashChains(int size) {
+    public HashChains(int size, hashFunc func) {
         this.size = WorkWithSize.isPrime(size) ? size : WorkWithSize.getNextPrime(size);
         this.lists = new LinkedList[this.size];
+        this.func = func;
+    }
+    public HashChains(int size, HashFuncWithConst func, Double constant) {
+        this.size = WorkWithSize.isPrime(size) ? size : WorkWithSize.getNextPrime(size);
+        this.lists = new LinkedList[this.size];
+        this.funcWithConst = func;
+        this.constant = constant;
     }
 
     public void put(int key, int value) throws Exception {
         Entry newElem = new Entry(key, value);
-        int index = Hash.hash1(key, size);
+        int index;
+        if (constant.isNaN()) {
+            index = func.hashFunc(key, size);
+        } else {
+            index = funcWithConst.hashFunc(key, size, constant);
+        }
         if (lists[index] == null) {
             lists[index] = new LinkedList<>();
         }

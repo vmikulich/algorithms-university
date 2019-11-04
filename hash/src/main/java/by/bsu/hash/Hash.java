@@ -6,8 +6,9 @@ public class Hash {
         return key % size;
     }
 
-    public static int hash2(int key, int size) {
-        return (int) Math.floor(size * ((key * 1) - Math.floor(key * 1)));
+
+    public static int hash2(int key, int size, double constant) {
+        return (int) Math.floor(size * ((key * constant) - Math.floor(key * constant)));
     }
 
     public static int hash3(int key, int size) {
