@@ -1,8 +1,8 @@
 package by.bsu.graph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import by.bsu.graph.util.Methods;
+
+import java.util.*;
 
 public class ListGraph {
     private HashMap<Integer, List<Integer>> adjacentList;
@@ -36,6 +36,7 @@ public class ListGraph {
             this.adjacentList.get(vertex2).add(vertex1);
         }
     }
+
     public void removeEdge(int vertex1, int vertex2) {
         if (!this.adjacentList.containsKey(vertex1) || !this.adjacentList.containsKey(vertex2)) {
             throw new RuntimeException("This edge isn't exist");
@@ -49,6 +50,9 @@ public class ListGraph {
     }
 
     public List<Integer> getVertexEnvironment(int vertex) {
+        if (!adjacentList.keySet().contains(vertex)) {
+            return null;
+        }
         return this.adjacentList.get(vertex);
     }
 
@@ -59,13 +63,29 @@ public class ListGraph {
         }
         return environmentOfVertex1.contains(vertex2);
     }
+    public HashSet<Integer> breadthFirstSearch() {
+        if (this.adjacentList.size() == 0) {
+            return null;
+        }
+        List<Integer> vertices = new ArrayList<>();
+        vertices.addAll(this.adjacentList.keySet());
+        ArrayDeque<Integer> queue = new ArrayDeque<>();
+        queue.add(vertices.get(0));
+        HashSet<Integer> usedVertices = new HashSet<>();
+        while (!queue.isEmpty()) {
+            int vertex = queue.pop();
+            List<Integer> adjacentVertices = this.adjacentList.get(vertex);
+            for (int child: adjacentVertices) {
+                if (!usedVertices.contains(child) && !queue.contains(child)) {
+                    queue.add(child);
+                }
+            }
+            usedVertices.add(vertex);
+        }
+        return usedVertices;
+    }
 
-    public static void main(String[] args) {
-        ListGraph graph = new ListGraph();
-        graph.addVertex(1);
-        System.out.println(graph.getAdjacentList());
-        graph.addEdge(1, 2);
-        System.out.println(graph.getAdjacentList());
-        System.out.println(graph.isAdjacentVertices(1, 2));
+    public Integer countOfVertices() {
+        return this.adjacentList.size();
     }
 }
