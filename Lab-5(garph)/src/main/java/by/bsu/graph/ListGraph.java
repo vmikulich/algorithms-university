@@ -22,6 +22,12 @@ public class ListGraph {
         this.adjacentList.put(vertex, new ArrayList<>());
     }
 
+    public void addVertices(Integer[] vertices) {
+        for (int vertex: vertices) {
+            this.addVertex(vertex);
+        }
+    }
+
     public void addEdge(int vertex1, int vertex2) {
         if (this.adjacentList.containsKey(vertex1)) {
             this.adjacentList.get(vertex1).add(vertex2);
