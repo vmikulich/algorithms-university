@@ -69,6 +69,7 @@ public class ListGraph {
         }
         return environmentOfVertex1.contains(vertex2);
     }
+
     public HashSet<Integer> breadthFirstSearch() {
         if (this.adjacentList.size() == 0) {
             return null;
