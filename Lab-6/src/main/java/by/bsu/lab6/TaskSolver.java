@@ -1,8 +1,6 @@
 package by.bsu.lab6;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class TaskSolver {
     public static Integer robot(int size) {
@@ -17,9 +15,5 @@ public class TaskSolver {
             }
         }
         return matrix[0][size - 1];
-    }
-
-    public static void main(String[] args) {
-        System.out.println(robot(20));
     }
 }
