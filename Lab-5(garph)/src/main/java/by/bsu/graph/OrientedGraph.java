@@ -108,15 +108,4 @@ public class OrientedGraph {
             }
         }
     }
-
-    public static void main(String[] args) {
-        OrientedGraph graph = new OrientedGraph();
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(4, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(3, 2);
-        System.out.println(graph.depthFirstSearch());
-    }
-
 }
