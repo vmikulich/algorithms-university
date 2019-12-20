@@ -28,6 +28,10 @@ public class ListGraph {
         }
     }
 
+    public void setAdjacentList(HashMap<Integer, List<Integer>> adjacentList) {
+        this.adjacentList = adjacentList;
+    }
+
     public void addEdge(int vertex1, int vertex2) {
         if (this.adjacentList.containsKey(vertex1)) {
             this.adjacentList.get(vertex1).add(vertex2);
