@@ -31,7 +31,7 @@ public class StableMarrigeProblemTest {
     @Test
     public void test2() {
         Integer men[][] = {
-                {3,1,2,1,4},
+                {3,1,2,0,4},
                 {3,4,2,1,0},
                 {3,2,1,0,4},
                 {1,4,3,2,0},
