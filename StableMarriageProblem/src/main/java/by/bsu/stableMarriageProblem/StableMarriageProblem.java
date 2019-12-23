@@ -26,57 +26,42 @@ public class StableMarriageProblem {
         for (int i=0; i<estimations.length; i++) {
             availableTasks.add(i);
         }
-
         Map<Integer, Integer> availableCoders = new HashMap <> ();
         for (int i=0; i<priorities.length; i++) {
             availableCoders.put(i, null);
         }
-
-        int size = availableTasks.size();
-        while (size > 0) {
+        while (availableTasks.size() > 0) {
             int currentTask = availableTasks.iterator().next();
-
             SortedMap<Integer, Integer> sortedMap = new TreeMap<>();
-
             for (int i = 0; i<estimations[currentTask].length; i++) {
                 sortedMap.put(estimations[currentTask][i],i);
             }
-            System.out.println ("\nT " + currentTask + " :");
             for(Map.Entry<Integer,Integer> entry : sortedMap.entrySet()) {
-                Integer fiance = availableCoders.get(entry.getValue());
-                if (fiance == null){
-
+                Integer task = availableCoders.get(entry.getValue());
+                if (task == null) {
                     availableCoders.put(entry.getValue(), currentTask);
                     availableTasks.remove(currentTask);
-                    System.out.println ("T-" + currentTask + " contract with C-" + entry.getValue());
                     break;
                 }
-                else{
-
-                    int prefForFiance = -1;
-                    int prefForCurrentBachelor = -1;
-                    for (int k=0; k<priorities[entry.getValue()].length; k++){
-                        if (priorities[entry.getValue()][k] == fiance) {
-                            prefForFiance = k;
+                else {
+                    int prefForTask = -1;
+                    int prefForCurrentTask = -1;
+                    for (int k = 0; k < priorities[entry.getValue()].length; k++){
+                        if (priorities[entry.getValue()][k] == task) {
+                            prefForTask = k;
                         }
-
                         if (priorities[entry.getValue()][k] == currentTask) {
-                            prefForCurrentBachelor = k;
+                            prefForCurrentTask = k;
                         }
                     }
-
-                    if (prefForCurrentBachelor < prefForFiance){
-
-                        availableCoders.put (entry.getValue(), currentTask);
+                    if (prefForCurrentTask < prefForTask){
+                        availableCoders.put(entry.getValue(), currentTask);
                         availableTasks.remove(currentTask);
-                        availableTasks.add(fiance);
-                        System.out.println ("T-" + fiance + " is dumped by C-" + entry.getValue());
-                        System.out.println ("T-" + currentTask + " contract with C-" + entry.getValue());
+                        availableTasks.add(task);
                         break;
                     }
                 }
             }
-            size = availableTasks.size();
         }
 
         int totalEfficiency = 0;
