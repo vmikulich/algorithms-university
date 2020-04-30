@@ -4,7 +4,7 @@ import by.bsu.graph.util.Methods;
 
 import java.util.*;
 
-public class ListGraph {
+public class ListGraph implements Cloneable {
     private HashMap<Integer, List<Integer>> adjacentList;
 
     public ListGraph() {
@@ -20,6 +20,14 @@ public class ListGraph {
             throw new RuntimeException("Such vertex has already exist");
         }
         this.adjacentList.put(vertex, new ArrayList<>());
+    }
+
+    public Set<Integer> getAllVertices() {
+        return adjacentList.keySet();
+    }
+
+    public Integer getVertexDegree(int vertex) {
+        return adjacentList.get(vertex).size();
     }
 
     public void addVertices(Integer[] vertices) {
@@ -98,5 +106,10 @@ public class ListGraph {
 
     public Integer countOfVertices() {
         return this.adjacentList.size();
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

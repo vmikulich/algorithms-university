@@ -1,5 +1,7 @@
 package by.bsu.graph;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import by.bsu.graph.util.Methods;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -7,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -102,6 +105,30 @@ public class ListGraphTest {
         graph.addEdge(5, 6);
         graph.addEdge(1, 5);
         assertTrue(Methods.isBipartite(graph));
+    }
+
+    @Test
+    public void testDsatur() {
+        ListGraph graph1 = new ListGraph();
+        graph1.addEdge(1, 2);
+        graph1.addEdge(1, 7);
+        graph1.addEdge(2, 3);
+        graph1.addEdge(7, 6);
+        graph1.addEdge(6, 3);
+        graph1.addEdge(3, 4);
+        graph1.addEdge(6, 4);
+        graph1.addEdge(6, 5);
+        graph1.addEdge(5, 4);
+
+        HashMap<Integer, Integer> expected = new HashMap<>();
+        expected.put(1, 1);
+        expected.put(2, 0);
+        expected.put(3, 1);
+        expected.put(4, 2);
+        expected.put(5, 1);
+        expected.put(6, 0);
+        expected.put(7, 2);
+        assertThat(Methods.dsatur(graph1), is(expected));
     }
 
 }

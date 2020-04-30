@@ -34,15 +34,79 @@ public class Methods {
         return true;
     }
 
-    public static void main(String[] args) {
-        ListGraph graph = new ListGraph();
-        Integer[] ver = new Integer[]{1, 2, 3};
-        graph.addVertices(ver);
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 4);
-        graph.addEdge(4, 5);
-        graph.addEdge(5, 1);
-        System.out.println(isBipartite(graph));
+    private static Integer chooseVertexToColorDsatur(ListGraph graph, List<Integer> notColoredVertices, HashMap<Integer,HashSet<Integer>> adjacentVerticesColors) {
+        Integer vertexToColor = notColoredVertices.get(0);
+        for (int vertex: notColoredVertices) {
+            boolean saturation_greater = adjacentVerticesColors.get(vertex).size() > adjacentVerticesColors.get(vertexToColor).size();
+            boolean saturation_equal = adjacentVerticesColors.get(vertex).size() == adjacentVerticesColors.get(vertexToColor).size();
+            boolean degree = graph.getVertexDegree(vertex) > graph.getVertexDegree(vertexToColor);
+            if (saturation_greater || saturation_equal && degree) {
+                vertexToColor = vertex;
+            }
+        }
+        return vertexToColor;
     }
+
+    private static Integer chooseColor(Integer colorsNumber, HashSet<Integer> adjacentVertexColors) {
+        List<Integer> adjacentVertexColorsList = new ArrayList<>(adjacentVertexColors);
+        List<Integer> colors = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < colorsNumber + 1; i++) {
+            colors.add(i);
+        }
+        for (int i = 0; i < colors.size(); i++) {
+            if (!adjacentVertexColorsList.contains(colors.get(i))) {
+                res.add(colors.get(i));
+            }
+        }
+        Collections.sort(res);
+        return res.get(0);
+    }
+
+    public static HashMap<Integer, Integer> dsatur(ListGraph graph) {
+        HashMap<Integer, Integer> verticesColors = new HashMap<>();
+        List<Integer> notColoredVertices = new ArrayList<>(graph.getAllVertices());
+        Integer numberOfUsedColors = 0;
+        HashMap<Integer,HashSet<Integer>> adjacentVerticesColors = new HashMap<>();
+        for (int vertex: notColoredVertices) {
+            adjacentVerticesColors.put(vertex, new HashSet<>());
+        }
+        while(notColoredVertices.size() != 0) {
+            Integer vertexToColor = chooseVertexToColorDsatur(graph, notColoredVertices, adjacentVerticesColors);
+            Integer color = chooseColor(numberOfUsedColors, adjacentVerticesColors.get(vertexToColor));
+            verticesColors.put(vertexToColor, color);
+            numberOfUsedColors = Math.max(numberOfUsedColors, color + 1);
+            notColoredVertices.remove(vertexToColor);
+            for (int adjacentVertex: graph.getVertexEnvironment(vertexToColor)) {
+                adjacentVerticesColors.get(adjacentVertex).add(color);
+            }
+        }
+        return verticesColors;
+    }
+
+//    public static HashMap<Integer, Integer> gis(ListGraph graph) {
+//        HashMap<Integer, Integer> verticesColors = new HashMap<>();
+//        List<Integer> notColoredVertices = new ArrayList<>(graph.getAllVertices());
+//        Integer currentColor = 0;
+//        HashMap<Integer,HashSet<Integer>> adjacentVerticesColors = new HashMap<>();
+//        for (int vertex: notColoredVertices) {
+//            adjacentVerticesColors.put(vertex, new HashSet<>());
+//        }
+//
+//        return  null;
+//    }
+
+//    public static void main(String[] args) throws CloneNotSupportedException {
+//        ListGraph graph = new ListGraph();
+//        graph.addEdge(1, 2);
+//        graph.addEdge(1, 7);
+//        graph.addEdge(2, 3);
+//        graph.addEdge(7, 6);
+//        graph.addEdge(6, 3);
+//        graph.addEdge(3, 4);
+//        graph.addEdge(6, 4);
+//        graph.addEdge(6, 5);
+//        graph.addEdge(5, 4);
+//        System.out.println(dsatur(graph));
+//    }
 }

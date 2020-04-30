@@ -11,7 +11,6 @@ class TuringMachine:
         print(''.join(tape))
 
     def run(self, state, position):
-        self.display(self.tape)
         if state in ('y', 'n'):
             return
         next_state, symbol, move_number = self.table[state][self.tape[position]]

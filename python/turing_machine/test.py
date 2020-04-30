@@ -53,8 +53,8 @@ table1 = {
     }
 }
 dictionary = ["a", "b"]
-first = TuringMachine(dictionary, table1, None, None)
-first.start("aabbaab")
+first = TuringMachine(dictionary, table, None, None)
+first.start("aaab")
 
 
 # class TestTuringMachine(TestCase):
