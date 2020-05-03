@@ -3,6 +3,7 @@ package by.bsu.graph.util;
 import by.bsu.graph.ListGraph;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Methods {
     public static boolean isGraphConnected(ListGraph graph) {
@@ -84,17 +85,44 @@ public class Methods {
         return verticesColors;
     }
 
-//    public static HashMap<Integer, Integer> gis(ListGraph graph) {
-//        HashMap<Integer, Integer> verticesColors = new HashMap<>();
-//        List<Integer> notColoredVertices = new ArrayList<>(graph.getAllVertices());
-//        Integer currentColor = 0;
-//        HashMap<Integer,HashSet<Integer>> adjacentVerticesColors = new HashMap<>();
-//        for (int vertex: notColoredVertices) {
-//            adjacentVerticesColors.put(vertex, new HashSet<>());
-//        }
-//
-//        return  null;
-//    }
+    private static List<Integer> chooseVerticesGis(List<Integer> notColoredVertices, HashMap<Integer,HashSet<Integer>> adjacentVerticesColors, Integer color) {
+        List<Integer> vertices = new ArrayList<>();
+        for (int vertex: notColoredVertices) {
+            if (!adjacentVerticesColors.get(vertex).contains(color)) {
+                vertices.add(vertex);
+            }
+        }
+        return vertices;
+    }
+
+    public static HashMap<Integer, Integer> gis(ListGraph graph) {
+        HashMap<Integer, Integer> verticesColors = new HashMap<>();
+        List<Integer> notColoredVertices = new ArrayList<>(graph.getAllVertices());
+        Integer currentColor = 0;
+        HashMap<Integer,HashSet<Integer>> adjacentVerticesColors = new HashMap<>();
+        for (int vertex: notColoredVertices) {
+            adjacentVerticesColors.put(vertex, new HashSet<>());
+        }
+        while(notColoredVertices.size() != 0) {
+            List<Integer> verticesToColor = chooseVerticesGis(notColoredVertices, adjacentVerticesColors, currentColor);
+            List<Integer> sortedVerticesToColor = verticesToColor.stream().sorted((v1, v2) -> {
+                Integer size1 = graph.getVertexEnvironment(v1).size();
+                Integer size2 = graph.getVertexEnvironment(v2).size();
+                return size1.compareTo(size2);
+            }).collect(Collectors.toList());
+            for (int vertex: sortedVerticesToColor) {
+                if (!adjacentVerticesColors.get(vertex).contains(currentColor)) {
+                    verticesColors.put(vertex, currentColor);
+                    notColoredVertices.remove(Integer.valueOf(vertex));
+                    for (int adjacentVertex: graph.getVertexEnvironment(vertex)) {
+                        adjacentVerticesColors.get(adjacentVertex).add(currentColor);
+                    }
+                }
+            }
+            currentColor += 1;
+        }
+        return  verticesColors;
+    }
 
 //    public static void main(String[] args) throws CloneNotSupportedException {
 //        ListGraph graph = new ListGraph();
@@ -107,6 +135,6 @@ public class Methods {
 //        graph.addEdge(6, 4);
 //        graph.addEdge(6, 5);
 //        graph.addEdge(5, 4);
-//        System.out.println(dsatur(graph));
+//        System.out.println(gis(graph));
 //    }
 }

@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ListGraphTest {
     ListGraph graph = new ListGraph();
+    ListGraph graph1 = new ListGraph();
 
     @BeforeEach
     public void initialization() {
@@ -25,6 +26,16 @@ public class ListGraphTest {
         graph.addEdge(1, 2);
         graph.addEdge(1, 4);
         graph.addEdge(5, 3);
+
+        graph1.addEdge(1, 2);
+        graph1.addEdge(1, 7);
+        graph1.addEdge(2, 3);
+        graph1.addEdge(7, 6);
+        graph1.addEdge(6, 3);
+        graph1.addEdge(3, 4);
+        graph1.addEdge(6, 4);
+        graph1.addEdge(6, 5);
+        graph1.addEdge(5, 4);
     }
 
     @Test
@@ -109,17 +120,6 @@ public class ListGraphTest {
 
     @Test
     public void testDsatur() {
-        ListGraph graph1 = new ListGraph();
-        graph1.addEdge(1, 2);
-        graph1.addEdge(1, 7);
-        graph1.addEdge(2, 3);
-        graph1.addEdge(7, 6);
-        graph1.addEdge(6, 3);
-        graph1.addEdge(3, 4);
-        graph1.addEdge(6, 4);
-        graph1.addEdge(6, 5);
-        graph1.addEdge(5, 4);
-
         HashMap<Integer, Integer> expected = new HashMap<>();
         expected.put(1, 1);
         expected.put(2, 0);
@@ -131,4 +131,16 @@ public class ListGraphTest {
         assertThat(Methods.dsatur(graph1), is(expected));
     }
 
+    @Test
+    public void testGis() {
+        HashMap<Integer, Integer> expected = new HashMap<>();
+        expected.put(1, 0);
+        expected.put(2, 1);
+        expected.put(3, 0);
+        expected.put(4, 1);
+        expected.put(5, 0);
+        expected.put(6, 2);
+        expected.put(7, 1);
+        assertThat(Methods.gis(graph1), is(expected));
+    }
 }
