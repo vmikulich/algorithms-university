@@ -5,10 +5,10 @@ def boyer_moore(str, substr):
     str_length = len(str)
     substr_length = len(substr)
     i = 0
-    while i <= str_length - substr_length:
+    while i <= str_length - substr_length + 1:
         number_of_skips = 0
         for j in reversed(range(substr_length)):
-            if not substr[j] == str[i+j]:
+            if substr[j] != str[i+j]:
                 if j < substr_length - 1:
                     number_of_skips = mismatch_shifts_table[substr[substr_length - 1]]
                 elif mismatch_shifts_table.get(str[i+j]) is not None:
